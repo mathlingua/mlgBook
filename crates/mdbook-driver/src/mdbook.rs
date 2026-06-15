@@ -10,6 +10,8 @@ use mdbook_core::book::{Book, BookItem, BookItems};
 use mdbook_core::config::{Config, RustEdition};
 use mdbook_core::utils::fs;
 use mdbook_html::HtmlHandlebars;
+use mdbook_markdown::MarkdownOptions;
+use mdbook_markdown::pulldown_cmark::{CodeBlockKind, Event, Tag, TagEnd};
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
 use mdbook_renderer::{RenderContext, Renderer};
 use mdbook_summary::Summary;
@@ -230,6 +232,104 @@ impl MDBook {
         self.test_chapter(library_paths, None)
     }
 
+    /// Run `mlg check` on the book's `mlg` code fences.
+    pub fn check(&mut self) -> Result<()> {
+        self.check_chapter(None)
+    }
+
+    /// Run `mlg check` on `mlg` code fences in a specific chapter.
+    /// If `chapter` is `None`, all chapters will be checked.
+    pub fn check_chapter(&mut self, chapter: Option<&str>) -> Result<()> {
+        let temp_dir = TempFileBuilder::new().prefix("mdbook-mlg-").tempdir()?;
+
+        let mut chapter_found = false;
+
+        struct CheckRenderer;
+        impl Renderer for CheckRenderer {
+            fn name(&self) -> &str {
+                "check"
+            }
+
+            fn render(&self, _: &RenderContext) -> Result<()> {
+                Ok(())
+            }
+        }
+
+        let (book, _) = self.preprocess_book(&CheckRenderer)?;
+
+        let mut failed = false;
+        for (chapter_index, item) in book.iter().enumerate() {
+            if let BookItem::Chapter(ref ch) = *item {
+                let chapter_path = match ch.path {
+                    Some(ref path) if !path.as_os_str().is_empty() => path,
+                    _ => continue,
+                };
+
+                if let Some(chapter) = chapter {
+                    if ch.name != chapter && chapter_path.to_str() != Some(chapter) {
+                        if chapter == "?" {
+                            info!("Skipping chapter '{}'...", ch.name);
+                        }
+                        continue;
+                    }
+                }
+                chapter_found = true;
+
+                let blocks = mlg_code_blocks(&ch.content);
+                if blocks.is_empty() {
+                    continue;
+                }
+
+                info!(
+                    "Checking {} MathLingua block(s) in chapter '{}': {:?}",
+                    blocks.len(),
+                    ch.name,
+                    chapter_path
+                );
+
+                for (block_index, block) in blocks.iter().enumerate() {
+                    let block_dir = temp_dir
+                        .path()
+                        .join(format!("chapter-{chapter_index}-block-{block_index}"));
+                    fs::create_dir_all(&block_dir)?;
+                    let file_name = "block.mlg";
+                    let path = block_dir.join(file_name);
+                    fs::write(&path, ensure_trailing_newline(block))?;
+
+                    let output = Command::new("mlg")
+                        .current_dir(&block_dir)
+                        .arg("check")
+                        .arg(file_name)
+                        .output()
+                        .with_context(|| {
+                            "failed to execute `mlg check`; is the `mlg` command installed and on PATH?"
+                        })?;
+
+                    if !output.status.success() {
+                        failed = true;
+                        eprintln!(
+                            "ERROR mlg check returned an error for block {} in {:?}:\n\
+                            \n--- stdout\n{}\n--- stderr\n{}",
+                            block_index + 1,
+                            chapter_path,
+                            String::from_utf8_lossy(&output.stdout),
+                            String::from_utf8_lossy(&output.stderr)
+                        );
+                    }
+                }
+            }
+        }
+        if failed {
+            bail!("One or more MathLingua checks failed");
+        }
+        if let Some(chapter) = chapter {
+            if !chapter_found {
+                bail!("Chapter not found: {}", chapter);
+            }
+        }
+        Ok(())
+    }
+
     /// Run `rustdoc` tests on a specific chapter of the book, linking against the provided libraries.
     /// If `chapter` is `None`, all tests will be run.
     pub fn test_chapter(&mut self, library_paths: Vec<&str>, chapter: Option<&str>) -> Result<()> {
@@ -389,6 +489,54 @@ impl MDBook {
             .html_config()
             .unwrap_or_default()
             .theme_dir(&self.root)
+    }
+}
+
+fn mlg_code_blocks(markdown: &str) -> Vec<String> {
+    let parser = mdbook_markdown::new_cmark_parser(markdown, &MarkdownOptions::default());
+    let mut blocks = Vec::new();
+    let mut events = parser.peekable();
+
+    while let Some(event) = events.next() {
+        let Event::Start(Tag::CodeBlock(CodeBlockKind::Fenced(info))) = event else {
+            continue;
+        };
+
+        if code_fence_language(&info) != Some("mlg") || code_fence_has_class(&info, "ignore") {
+            continue;
+        }
+
+        let mut source = String::new();
+        for event in events.by_ref() {
+            match event {
+                Event::Text(text) | Event::Html(text) => source.push_str(&text),
+                Event::End(TagEnd::CodeBlock) => break,
+                _ => {}
+            }
+        }
+        blocks.push(source);
+    }
+
+    blocks
+}
+
+fn code_fence_language(info: &str) -> Option<&str> {
+    code_fence_classes(info).next()
+}
+
+fn code_fence_has_class(info: &str, class: &str) -> bool {
+    code_fence_classes(info).any(|part| part == class)
+}
+
+fn code_fence_classes(info: &str) -> impl Iterator<Item = &str> {
+    info.split([' ', '\t', ',']).filter(|info| !info.is_empty())
+}
+
+fn ensure_trailing_newline(source: &str) -> String {
+    if source.ends_with('\n') {
+        source.to_owned()
+    } else {
+        format!("{source}\n")
     }
 }
 

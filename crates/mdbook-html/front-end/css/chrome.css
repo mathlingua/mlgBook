@@ -199,6 +199,14 @@ html:not(.js) .left-buttons button {
 
 /* Inline code */
 
+.content :not(pre) > code {
+    box-sizing: border-box;
+    padding: 0.1em 0.3em;
+    background: var(--mlg-source-bg);
+    border: 1px solid var(--mlg-source-border);
+    border-radius: 3px;
+}
+
 :not(pre) > .hljs {
     display: inline;
     padding: 0.1em 0.3em;
@@ -287,9 +295,124 @@ pre > .buttons button.clip-button:hover::before {
         display: none;
     }
 }
-pre > code {
+pre > code,
+.content main pre > code.hljs {
+    box-sizing: border-box;
     display: block;
     padding: 1rem;
+    background: var(--mlg-source-bg);
+    border: 1px solid var(--mlg-source-border);
+    border-radius: 3px;
+    box-shadow: none;
+}
+
+.content main pre > code.mlg {
+    color: var(--fg);
+}
+
+.content main pre > code.mlg .hljs-section {
+    color: var(--links);
+    font-weight: 400;
+}
+
+.content main pre > code.mlg .mlg-command {
+    color: var(--fg);
+    font-weight: 400;
+}
+
+.content main pre > code.mlg .hljs-title:not(.mlg-command) {
+    color: var(--mlg-source-command);
+    font-weight: 600;
+}
+
+.content main pre > code.mlg .mlg-header,
+.content main pre > code.mlg .mlg-header * {
+    font-weight: 700;
+}
+
+.content main pre > code.mlg .hljs-keyword {
+    color: var(--links);
+}
+
+.content main pre > code.mlg .mlg-keyword {
+    color: var(--fg);
+    font-weight: 700;
+}
+
+.content main pre > code.mlg .hljs-string,
+.content main pre > code.mlg .hljs-symbol,
+.content main pre > code.mlg .hljs-variable,
+.content main pre > code.mlg .hljs-number {
+    color: var(--fg);
+}
+
+.content main pre > code.mlg .hljs-comment,
+.content main pre > code.mlg .hljs-meta {
+    color: var(--mlg-source-muted);
+}
+
+.content main .mlg-view.hljs {
+    box-sizing: border-box;
+    display: block;
+    margin: 1.5em 0;
+    padding: 25px 35px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 1.6rem;
+    line-height: 1.45;
+    color: var(--fg);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.mlg-view .math-inline {
+    white-space: normal;
+}
+
+.mlg-view .hljs-section,
+.mlg-view .hljs-title {
+    color: var(--fg);
+}
+
+.mlg-view .hljs-section,
+.mlg-view .hljs-title {
+    font-weight: 700;
+}
+
+.mlg-view .hljs-title.mlg-command,
+.mlg-view .hljs-keyword {
+    color: var(--fg);
+    font-weight: 400;
+}
+
+.mlg-view .mlg-keyword {
+    font-weight: 700;
+}
+
+.mlg-view .mlg-header,
+.mlg-view .mlg-header * {
+    font-weight: 700;
+}
+
+.mlg-view .hljs-symbol,
+.mlg-view .hljs-string,
+.mlg-view .hljs-variable,
+.mlg-view .hljs-number {
+    color: var(--fg);
+}
+
+.mlg-view .hljs-comment,
+.mlg-view .hljs-meta {
+    color: var(--searchresults-header-fg);
+}
+
+@media only screen and (max-width: 600px) {
+    .content main .mlg-view.hljs {
+        padding: 20px;
+    }
 }
 
 /* FIXME: ACE editors overlap their buttons because ACE does absolute

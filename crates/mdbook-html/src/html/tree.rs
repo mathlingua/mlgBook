@@ -6,7 +6,7 @@
 //! transformations that mdbook performs, such as creating header links.
 
 use super::tokenizer::parse_html;
-use super::{HtmlRenderOptions, hide_lines, wrap_rust_main};
+use super::{HtmlRenderOptions, hide_lines, mlg, wrap_rust_main};
 use crate::utils::{id_from_content, unique_id};
 use ego_tree::{NodeId, NodeRef, Tree};
 use html5ever::tendril::StrTendril;
@@ -422,13 +422,23 @@ where
                 let mut code = Element::new("code");
                 match kind {
                     CodeBlockKind::Fenced(info) => {
+                        if code_fence_language(&info) == Some("mlg-view") {
+                            let source = self.text_for_code_block();
+                            self.append_fragment(mlg::render_view(&source));
+                            return;
+                        }
+
                         let mut infos =
                             info.split([' ', '\t', ',']).filter(|info| !info.is_empty());
                         if let Some(lang) = infos.next() {
                             let mut classes = String::with_capacity(info.len() + 10);
                             // The first element in the infostring is treated as the language.
-                            classes.push_str("language-");
-                            classes.push_str(lang);
+                            if lang == "mlg" {
+                                classes.push_str("mlg no-highlight");
+                            } else {
+                                classes.push_str("language-");
+                                classes.push_str(lang);
+                            }
                             // The rest are just added as classes.
                             while let Some(info) = infos.next() {
                                 classes.push(' ');
@@ -732,6 +742,22 @@ where
         }
     }
 
+    /// Eats code block events and returns their text.
+    fn text_for_code_block(&mut self) -> String {
+        let mut output = String::new();
+        while let Some(event) = self.events.next() {
+            match event {
+                Event::Text(text) | Event::Html(text) => output.push_str(&text),
+                Event::End(TagEnd::CodeBlock) => break,
+                _ => panic!(
+                    "`{}` unexpected event in code block {event:?}",
+                    self.options.path.display()
+                ),
+            }
+        }
+        output
+    }
+
     /// Eats events generating a plain text string, stripping out any
     /// formatting elements.
     fn text_for_img_alt(&mut self) -> String {
@@ -959,11 +985,16 @@ where
         });
 
         for code_id in code_ids.iter().copied() {
-            let mut node = self.tree.get_mut(code_id).unwrap();
+            let node = self.tree.get(code_id).unwrap();
             let parent_id = node.parent().unwrap().id();
-            let code_el = node.value().as_element_mut().unwrap();
-            let class = code_el.attr("class").unwrap_or_default();
+            let code_el = node.value().as_element().unwrap();
+            let class = code_el.attr("class").unwrap_or_default().to_owned();
             let class_set: HashSet<_> = class.split(' ').collect();
+            if class_set.contains("mlg") {
+                self.highlight_mlg_code_block(code_id);
+                continue;
+            }
+
             let is_editable = class_set.contains("editable");
             let is_playground = class_set.contains("language-rust")
                 && ((!class_set.contains("ignore")
@@ -986,6 +1017,8 @@ where
                 })
             };
             if let Some(edition) = add_edition {
+                let mut node = self.tree.get_mut(code_id).unwrap();
+                let code_el = node.value().as_element_mut().unwrap();
                 code_el.insert_attr("class", format!("{class} {edition}").into());
             }
 
@@ -1009,6 +1042,39 @@ where
         for code_id in code_ids {
             hide_lines(&mut self.tree, code_id, &self.options.config.code.hidelines);
         }
+    }
+
+    fn highlight_mlg_code_block(&mut self, code_id: NodeId) {
+        let Some(source) = self
+            .tree
+            .get(code_id)
+            .unwrap()
+            .first_child()
+            .and_then(|child| match child.value() {
+                Node::Text(text) => Some(text.to_string()),
+                _ => None,
+            })
+        else {
+            return;
+        };
+
+        let mut node = self.tree.get_mut(code_id).unwrap();
+        if let Some(mut child) = node.first_child() {
+            child.detach();
+        }
+
+        let new_nodes = mlg::highlight_source(&source);
+        let root = self.tree.extend_tree(new_nodes);
+        let root_id = root.id();
+        let mut node = self.tree.get_mut(code_id).unwrap();
+        node.reparent_from_id_append(root_id);
+    }
+
+    fn append_fragment(&mut self, fragment: Tree<Node>) {
+        let root = self.tree.extend_tree(fragment);
+        let root_id = root.id();
+        let mut node = self.tree.get_mut(self.current_node).unwrap();
+        node.reparent_from_id_append(root_id);
     }
 
     /// This is used after parsing is complete to replace `<i>` tags with a
@@ -1085,6 +1151,10 @@ fn text_in_node(node: NodeRef<'_, Node>, output: &mut String) {
         }
         text_in_node(child, output);
     }
+}
+
+fn code_fence_language(info: &str) -> Option<&str> {
+    info.split([' ', '\t', ',']).find(|info| !info.is_empty())
 }
 
 /// Modifies links to work with HTML.

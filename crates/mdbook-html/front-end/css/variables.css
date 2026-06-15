@@ -7,11 +7,19 @@
     --sidebar-resize-indicator-width: 8px;
     --sidebar-resize-indicator-space: 2px;
     --page-padding: 15px;
-    --content-max-width: 750px;
+    --content-max-width: 800px;
     --menu-bar-height: 50px;
     --mono-font: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace;
     --code-font-size: 0.875em; /* please adjust the ace font size accordingly in editor.js */
     --searchbar-margin-block-start: 5px;
+    --card-bg: var(--bg);
+    --card-border: var(--table-border-color);
+    --card-radius: 10px;
+    --card-shadow: none;
+    --mlg-source-bg: var(--theme-hover);
+    --mlg-source-border: var(--card-border);
+    --mlg-source-command: var(--fg);
+    --mlg-source-muted: var(--searchresults-header-fg);
 }
 
 /* Themes */
@@ -139,56 +147,56 @@
 }
 
 .light, html:not(.js) {
-    --bg: hsl(0, 0%, 100%);
-    --fg: hsl(0, 0%, 0%);
+    --bg: #ffffff;
+    --fg: #000000;
 
-    --sidebar-bg: #fafafa;
-    --sidebar-fg: hsl(0, 0%, 0%);
-    --sidebar-non-existant: #aaaaaa;
-    --sidebar-active: #1f1fff;
-    --sidebar-spacer: #f4f4f4;
+    --sidebar-bg: #ffffff;
+    --sidebar-fg: #000000;
+    --sidebar-non-existant: #9a9a9a;
+    --sidebar-active: #0055bb;
+    --sidebar-spacer: #e5e5e5;
 
     --scrollbar: #8F8F8F;
 
-    --icons: #747474;
-    --icons-hover: #000000;
+    --icons: #000000;
+    --icons-hover: #0055bb;
 
-    --links: #20609f;
+    --links: #0055bb;
 
-    --inline-code-color: #301900;
+    --inline-code-color: #0055bb;
 
-    --theme-popup-bg: #fafafa;
-    --theme-popup-border: #cccccc;
-    --theme-hover: #e6e6e6;
+    --theme-popup-bg: #ffffff;
+    --theme-popup-border: #e5e5e5;
+    --theme-hover: #f6f6f6;
 
-    --quote-bg: hsl(197, 37%, 96%);
-    --quote-border: hsl(197, 37%, 91%);
+    --quote-bg: #ffffff;
+    --quote-border: #e5e5e5;
 
     --warning-border: #ff8e00;
 
-    --table-border-color: hsl(0, 0%, 95%);
-    --table-header-bg: hsl(0, 0%, 80%);
-    --table-alternate-bg: hsl(0, 0%, 97%);
+    --table-border-color: #e5e5e5;
+    --table-header-bg: #f7f7f7;
+    --table-alternate-bg: #fbfbfb;
 
-    --searchbar-border-color: #aaa;
-    --searchbar-bg: #fafafa;
-    --searchbar-fg: #000;
-    --searchbar-shadow-color: #aaa;
+    --searchbar-border-color: #e5e5e5;
+    --searchbar-bg: #ffffff;
+    --searchbar-fg: #000000;
+    --searchbar-shadow-color: #0055bb;
     --searchresults-header-fg: #666;
-    --searchresults-border-color: #888;
-    --searchresults-li-bg: #e4f2fe;
-    --search-mark-bg: #a2cff5;
+    --searchresults-border-color: #e5e5e5;
+    --searchresults-li-bg: #f4f8ff;
+    --search-mark-bg: #d9e9ff;
 
     --color-scheme: light;
 
     /* Same as `--icons` */
-    --copy-button-filter: invert(45.49%);
+    --copy-button-filter: brightness(0) saturate(100%);
     /* Same as `--sidebar-active` */
-    --copy-button-filter-hover: invert(14%) sepia(93%) saturate(4250%) hue-rotate(243deg) brightness(99%) contrast(130%);
+    --copy-button-filter-hover: invert(21%) sepia(93%) saturate(2186%) hue-rotate(202deg) brightness(82%) contrast(106%);
 
-    --footnote-highlight: #7e7eff;
+    --footnote-highlight: #0055bb;
 
-    --overlay-bg: rgba(200, 200, 205, 0.4);
+    --overlay-bg: rgba(0, 0, 0, 0.12);
 
     --blockquote-note-color: #0969da;
     --blockquote-tip-color: #008000;
@@ -196,7 +204,15 @@
     --blockquote-warning-color: #9a6700;
     --blockquote-caution-color: #b52731;
 
-    --sidebar-header-border-color: #6e6edb;
+    --sidebar-header-border-color: #0055bb;
+
+    --card-bg: #ffffff;
+    --card-border: #e5e5e5;
+    --card-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0,
+        rgba(0, 0, 0, 0.05) 0 1px 1px 0;
+    --mlg-source-bg: #f6f6f6;
+    --mlg-source-command: #444444;
+    --mlg-source-muted: #666666;
 }
 
 .navy {
@@ -379,5 +395,11 @@
         --blockquote-caution-color: #d91b29;
 
         --sidebar-header-border-color: #3473ad;
+
+        --card-bg: var(--bg);
+        --card-border: var(--table-border-color);
+        --card-shadow: none;
+        --mlg-source-command: var(--fg);
+        --mlg-source-muted: var(--searchresults-header-fg);
     }
 }

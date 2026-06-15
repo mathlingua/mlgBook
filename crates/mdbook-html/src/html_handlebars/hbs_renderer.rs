@@ -9,6 +9,8 @@ use handlebars::Handlebars;
 use mdbook_core::book::{Book, BookItem, Chapter};
 use mdbook_core::config::{BookConfig, Config, HtmlConfig};
 use mdbook_core::utils::fs;
+use mdbook_markdown::MarkdownOptions;
+use mdbook_markdown::pulldown_cmark::{CodeBlockKind, Event, Tag};
 use mdbook_renderer::{RenderContext, Renderer};
 use serde_json::json;
 use std::collections::{BTreeMap, HashMap};
@@ -506,7 +508,7 @@ fn make_data(
         json!(preferred_dark_theme),
     );
 
-    if html_config.mathjax_support {
+    if html_config.mathjax_support || book_has_mlg_view(book) {
         data.insert("mathjax_support".to_owned(), json!(true));
     }
 
@@ -628,6 +630,28 @@ fn make_data(
 
     debug!("[*]: JSON constructed");
     Ok(data)
+}
+
+fn book_has_mlg_view(book: &Book) -> bool {
+    book.iter().any(|item| match item {
+        BookItem::Chapter(chapter) => chapter_has_mlg_view(&chapter.content),
+        _ => false,
+    })
+}
+
+fn chapter_has_mlg_view(markdown: &str) -> bool {
+    let parser = mdbook_markdown::new_cmark_parser(markdown, &MarkdownOptions::default());
+    parser.into_iter().any(|event| {
+        matches!(
+            event,
+            Event::Start(Tag::CodeBlock(CodeBlockKind::Fenced(info)))
+                if code_fence_language(&info) == Some("mlg-view")
+        )
+    })
+}
+
+fn code_fence_language(info: &str) -> Option<&str> {
+    info.split([' ', '\t', ',']).find(|info| !info.is_empty())
 }
 
 struct RenderChapterContext<'a> {

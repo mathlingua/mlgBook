@@ -18,6 +18,7 @@ use std::path::{Path, PathBuf};
 
 mod admonitions;
 mod hide_lines;
+mod mlg;
 mod print;
 mod serialize;
 #[cfg(test)]

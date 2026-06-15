@@ -24,6 +24,7 @@ fn main() {
     let res = match command.get_matches().subcommand() {
         Some(("init", sub_matches)) => cmd::init::execute(sub_matches),
         Some(("build", sub_matches)) => cmd::build::execute(sub_matches),
+        Some(("check", sub_matches)) => cmd::check::execute(sub_matches),
         Some(("clean", sub_matches)) => cmd::clean::execute(sub_matches),
         #[cfg(feature = "watch")]
         Some(("watch", sub_matches)) => cmd::watch::execute(sub_matches),
@@ -68,6 +69,7 @@ fn create_clap_command() -> Command {
         )
         .subcommand(cmd::init::make_subcommand())
         .subcommand(cmd::build::make_subcommand())
+        .subcommand(cmd::check::make_subcommand())
         .subcommand(cmd::test::make_subcommand())
         .subcommand(cmd::clean::make_subcommand())
         .subcommand(

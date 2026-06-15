@@ -6,6 +6,7 @@
 
 mod book_test;
 mod build;
+mod check;
 mod cli;
 mod config;
 mod includes;

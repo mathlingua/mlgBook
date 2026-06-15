@@ -5,6 +5,7 @@ target
 
 book-test
 guide/book
+testbed/
 
 .vscode
 tests/dummy_book/book/

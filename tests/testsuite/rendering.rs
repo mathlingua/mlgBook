@@ -188,6 +188,55 @@ let s = "foo";
     );
 }
 
+#[test]
+fn mathlingua_code_block_highlighting() {
+    BookTest::init(|_| {})
+        .change_file(
+            "src/chapter_1.md",
+            r#"```mlg
+[\function:on{A}:to{B}]
+Describes: f_ is \set -- comment
+Documented:
+. called: "function on $A?$ to $B?$"
+```
+"#,
+        )
+        .check_main_file(
+            "book/chapter_1.html",
+            str![[r#"
+<pre><code class="mlg no-highlight"><span class="mlg-header">[<span class="hljs-title mlg-command">/function</span>:on{A}:to{B}]</span>
+<span class="hljs-section">Describes:</span> <span class="hljs-variable">f_</span> <span class="hljs-keyword mlg-keyword">is</span> <span class="hljs-title mlg-command">/set</span> <span class="hljs-comment">-- comment</span>
+<span class="hljs-section">Documented:</span>
+<span class="hljs-meta">. </span><span class="hljs-section">called:</span> <span class="hljs-string">"function on $A?$ to $B?$"</span>
+</code></pre>
+"#]],
+        );
+}
+
+#[test]
+fn mathlingua_view_renders_inline_latex() {
+    BookTest::init(|_| {})
+        .change_file(
+            "src/chapter_1.md",
+            r#"```mlg-view
+[\function:on{A}:to{B}]
+Documented:
+. called: "map $A \to B$"
+```
+"#,
+        )
+        .check_main_file(
+            "book/chapter_1.html",
+            str![[r#"
+<div class="mlg-view hljs"><span class="mlg-header">[<span class="hljs-title mlg-command">/function</span>:on{A}:to{B}]</span>
+<span class="hljs-section">Documented:</span>
+<span class="hljs-meta">. </span><span class="hljs-section">called:</span> <span class="hljs-string">"map </span><span class="math math-inline">/(A /to B/)</span><span class="hljs-string">"</span>
+</div>
+"#]],
+        )
+        .check_file_contains("book/chapter_1.html", "MathJax.js?config");
+}
+
 // Rust code block in a list.
 #[test]
 fn code_block_in_list() {
