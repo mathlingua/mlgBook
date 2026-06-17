@@ -54,9 +54,10 @@ html.sidebar-visible #mdbook-menu-bar {
     height: var(--menu-bar-height);
 }
 #mdbook-menu-bar.bordered {
-    border-block-end-color: var(--table-border-color);
+    border-block-end-color: var();
 }
-#mdbook-menu-bar .fa-svg, #mdbook-menu-bar .icon-button {
+#mdbook-menu-bar .fa-svg,
+#mdbook-menu-bar .icon-button {
     position: relative;
     padding: 0 8px;
     z-index: 10;
@@ -65,7 +66,8 @@ html.sidebar-visible #mdbook-menu-bar {
     transition: color 0.5s;
 }
 @media only screen and (max-width: 420px) {
-    #mdbook-menu-bar .fa-svg, #mdbook-menu-bar .icon-button {
+    #mdbook-menu-bar .fa-svg,
+    #mdbook-menu-bar .icon-button {
         padding: 0 5px;
     }
 }
@@ -148,13 +150,17 @@ html:not(.js) .left-buttons button {
     align-content: center;
     flex-direction: column;
 
-    transition: color 0.5s, background-color 0.5s;
+    transition:
+        color 0.5s,
+        background-color 0.5s;
 }
 
 .nav-chapters:hover {
     text-decoration: none;
     background-color: var(--theme-hover);
-    transition: background-color 0.15s, color 0.15s;
+    transition:
+        background-color 0.15s,
+        color 0.15s;
 }
 
 .nav-wrapper {
@@ -173,16 +179,22 @@ html:not(.js) .left-buttons button {
     bottom: calc(15px + env(safe-area-inset-bottom));
     z-index: 100;
 
-    transition: color 0.5s, background-color 0.5s;
+    transition:
+        color 0.5s,
+        background-color 0.5s;
 }
 
 /* Only Firefox supports flow-relative values */
-.previous { float: left; }
-[dir=rtl] .previous { float: right; }
+.previous {
+    float: left;
+}
+[dir="rtl"] .previous {
+    float: right;
+}
 .mobile-nav-chapters.previous {
     left: var(--page-padding);
 }
-[dir=rtl] .mobile-nav-chapters.previous {
+[dir="rtl"] .mobile-nav-chapters.previous {
     right: var(--page-padding);
     left: unset;
 }
@@ -192,7 +204,7 @@ html:not(.js) .left-buttons button {
     float: right;
     right: var(--page-padding);
 }
-[dir=rtl] .next {
+[dir="rtl"] .next {
     float: left;
     right: unset;
     left: var(--page-padding);
@@ -200,30 +212,53 @@ html:not(.js) .left-buttons button {
 .mobile-nav-chapters.next {
     right: var(--page-padding);
 }
-[dir=rtl] .mobile-nav-chapters.next {
+[dir="rtl"] .mobile-nav-chapters.next {
     right: unset;
     left: var(--page-padding);
 }
 
 @media only screen and (max-width: 1080px) {
-    .nav-wide-wrapper { display: none; }
-    .nav-wrapper { display: block; }
-    .content { padding-block-end: calc(110px + env(safe-area-inset-bottom)); }
+    .nav-wide-wrapper {
+        display: none;
+    }
+    .nav-wrapper {
+        display: block;
+    }
+    .content {
+        padding-block-end: calc(110px + env(safe-area-inset-bottom));
+    }
 }
 
 /* sidebar-visible */
 @media only screen and (max-width: 1380px) {
-    #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .nav-wide-wrapper { display: none; }
-    #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .nav-wrapper { display: block; }
-    #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .content { padding-block-end: calc(110px + env(safe-area-inset-bottom)); }
+    #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .nav-wide-wrapper {
+        display: none;
+    }
+    #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .nav-wrapper {
+        display: block;
+    }
+    #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .content {
+        padding-block-end: calc(110px + env(safe-area-inset-bottom));
+    }
 }
 
 @media only screen and (min-width: 620px) {
-    #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .mobile-nav-chapters.previous {
-        left: calc(var(--sidebar-width) + var(--sidebar-resize-indicator-width) + var(--page-padding));
+    #mdbook-sidebar-toggle-anchor:checked
+        ~ .page-wrapper
+        .mobile-nav-chapters.previous {
+        left: calc(
+            var(--sidebar-width) + var(--sidebar-resize-indicator-width) +
+                var(--page-padding)
+        );
     }
-    [dir=rtl] #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .mobile-nav-chapters.previous {
-        right: calc(var(--sidebar-width) + var(--sidebar-resize-indicator-width) + var(--page-padding));
+    [dir="rtl"]
+        #mdbook-sidebar-toggle-anchor:checked
+        ~ .page-wrapper
+        .mobile-nav-chapters.previous {
+        right: calc(
+            var(--sidebar-width) + var(--sidebar-resize-indicator-width) +
+                var(--page-padding)
+        );
         left: unset;
     }
 }
@@ -268,11 +303,13 @@ pre > .buttons {
     cursor: pointer;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0.1s linear, opacity 0.1s linear;
+    transition:
+        visibility 0.1s linear,
+        opacity 0.1s linear;
 }
 pre:hover > .buttons {
     visibility: visible;
-    opacity: 1
+    opacity: 1;
 }
 pre > .buttons :hover {
     color: var(--sidebar-active);
@@ -291,7 +328,7 @@ pre > .buttons button {
     border-color: var(--icons);
     background-color: var(--theme-popup-bg);
     transition: 100ms;
-    transition-property: color,border-color,background-color;
+    transition-property: color, border-color, background-color;
     color: var(--icons);
 }
 
@@ -330,10 +367,10 @@ pre > code,
 .content main pre > code.hljs {
     box-sizing: border-box;
     display: block;
-    padding: 1rem;
+    padding: var(--mlg-code-padding);
     background: var(--mlg-source-bg);
     border: 1px solid var(--mlg-source-border);
-    border-radius: 3px;
+    border-radius: var(--mlg-border-radius);
     box-shadow: none;
 }
 
@@ -452,7 +489,7 @@ pre > code,
    wrapper), but that would require fixing a whole bunch of CSS rules.
 */
 .hljs.ace_editor {
-  padding: 0rem 0rem;
+    padding: 0rem 0rem;
 }
 
 pre > .result {
@@ -481,7 +518,7 @@ mark {
 }
 
 mark.fade-out {
-    background-color: rgba(0,0,0,0) !important;
+    background-color: rgba(0, 0, 0, 0) !important;
     cursor: auto;
 }
 
@@ -508,7 +545,9 @@ mark.fade-out {
 .spinner-wrapper {
     --spinner-margin: 2px;
     position: absolute;
-    margin-block-start: calc(var(--searchbar-margin-block-start) + var(--spinner-margin));
+    margin-block-start: calc(
+        var(--searchbar-margin-block-start) + var(--spinner-margin)
+    );
     right: var(--spinner-margin);
     top: 0;
     bottom: var(--spinner-margin);
@@ -625,7 +664,10 @@ ul#mdbook-searchresults span.teaser em {
     left: 0;
     right: 0;
 }
-[dir=rtl] .sidebar { left: unset; right: 0; }
+[dir="rtl"] .sidebar {
+    left: unset;
+    right: 0;
+}
 .sidebar-resizing {
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -680,13 +722,16 @@ html:not(.sidebar-resizing) .sidebar {
     border-left: dotted 2px currentColor;
 }
 
-[dir=rtl] .sidebar .sidebar-resize-handle {
+[dir="rtl"] .sidebar .sidebar-resize-handle {
     left: calc(var(--sidebar-resize-indicator-width) * -1);
     right: unset;
 }
 .js .sidebar .sidebar-resize-handle {
     cursor: col-resize;
-    width: calc(var(--sidebar-resize-indicator-width) - var(--sidebar-resize-indicator-space));
+    width: calc(
+        var(--sidebar-resize-indicator-width) -
+            var(--sidebar-resize-indicator-space)
+    );
 }
 
 html:not(.js) .sidebar-resize-handle {
@@ -695,10 +740,14 @@ html:not(.js) .sidebar-resize-handle {
 
 /* sidebar-hidden */
 #mdbook-sidebar-toggle-anchor:not(:checked) ~ .sidebar {
-    transform: translateX(calc(0px - var(--sidebar-width) - var(--sidebar-resize-indicator-width)));
+    transform: translateX(
+        calc(0px - var(--sidebar-width) - var(--sidebar-resize-indicator-width))
+    );
 }
-[dir=rtl] #mdbook-sidebar-toggle-anchor:not(:checked) ~ .sidebar {
-    transform: translateX(calc(var(--sidebar-width) + var(--sidebar-resize-indicator-width)));
+[dir="rtl"] #mdbook-sidebar-toggle-anchor:not(:checked) ~ .sidebar {
+    transform: translateX(
+        calc(var(--sidebar-width) + var(--sidebar-resize-indicator-width))
+    );
 }
 .sidebar::-webkit-scrollbar {
     background: var(--sidebar-bg);
@@ -709,17 +758,23 @@ html:not(.js) .sidebar-resize-handle {
 
 /* sidebar-visible */
 #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper {
-    transform: translateX(calc(var(--sidebar-width) + var(--sidebar-resize-indicator-width)));
+    transform: translateX(
+        calc(var(--sidebar-width) + var(--sidebar-resize-indicator-width))
+    );
 }
-[dir=rtl] #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper {
-    transform: translateX(calc(0px - var(--sidebar-width) - var(--sidebar-resize-indicator-width)));
+[dir="rtl"] #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper {
+    transform: translateX(
+        calc(0px - var(--sidebar-width) - var(--sidebar-resize-indicator-width))
+    );
 }
 @media only screen and (min-width: 620px) {
     #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper {
         transform: none;
-        margin-inline-start: calc(var(--sidebar-width) + var(--sidebar-resize-indicator-width));
+        margin-inline-start: calc(
+            var(--sidebar-width) + var(--sidebar-resize-indicator-width)
+        );
     }
-    [dir=rtl] #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper {
+    [dir="rtl"] #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper {
         transform: none;
     }
 }
@@ -818,8 +873,12 @@ html:not(.js) .sidebar-resize-handle {
 
 /* On touch devices, add more vertical spacing to make it easier to tap links. */
 @media (-moz-touch-enabled: 1), (pointer: coarse) {
-    .chapter li a { padding: 5px 0; }
-    .spacer { margin: 10px 0; }
+    .chapter li a {
+        padding: 5px 0;
+    }
+    .spacer {
+        margin: 10px 0;
+    }
 }
 
 .section {
@@ -847,7 +906,10 @@ html:not(.js) .sidebar-resize-handle {
     /* Don't let the children's background extend past the rounded corners. */
     overflow: hidden;
 }
-[dir=rtl] .theme-popup { left: unset;  right: 10px; }
+[dir="rtl"] .theme-popup {
+    left: unset;
+    right: 10px;
+}
 .theme-popup .default {
     color: var(--icons);
 }
@@ -895,7 +957,7 @@ html:not(.js) .sidebar-resize-handle {
 
 /* The popup help box. */
 #mdbook-help-popup {
-    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
     min-width: 300px;
     max-width: 500px;
     width: 100%;

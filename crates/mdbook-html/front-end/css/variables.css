@@ -1,4 +1,3 @@
-
 /* Globals */
 
 :root {
@@ -9,7 +8,9 @@
     --page-padding: 15px;
     --content-max-width: 800px;
     --menu-bar-height: 50px;
-    --mono-font: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace;
+    --mono-font:
+        "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono",
+        monospace, monospace;
     --code-font-size: 0.875em; /* please adjust the ace font size accordingly in editor.js */
     --searchbar-margin-block-start: 5px;
     --card-bg: var(--bg);
@@ -20,6 +21,8 @@
     --mlg-source-border: var(--card-border);
     --mlg-source-command: var(--fg);
     --mlg-source-muted: var(--searchresults-header-fg);
+    --mlg-border-radius: 8px;
+    --mlg-code-padding: 1.25rem;
 }
 
 /* Themes */
@@ -68,9 +71,11 @@
     --color-scheme: dark;
 
     /* Same as `--icons` */
-    --copy-button-filter: invert(45%) sepia(6%) saturate(621%) hue-rotate(198deg) brightness(99%) contrast(85%);
+    --copy-button-filter: invert(45%) sepia(6%) saturate(621%)
+        hue-rotate(198deg) brightness(99%) contrast(85%);
     /* Same as `--sidebar-active` */
-    --copy-button-filter-hover: invert(68%) sepia(55%) saturate(531%) hue-rotate(341deg) brightness(104%) contrast(101%);
+    --copy-button-filter-hover: invert(68%) sepia(55%) saturate(531%)
+        hue-rotate(341deg) brightness(104%) contrast(101%);
 
     --footnote-highlight: #2668a6;
 
@@ -129,9 +134,11 @@
     --color-scheme: dark;
 
     /* Same as `--icons` */
-    --copy-button-filter: invert(26%) sepia(8%) saturate(575%) hue-rotate(169deg) brightness(87%) contrast(82%);
+    --copy-button-filter: invert(26%) sepia(8%) saturate(575%)
+        hue-rotate(169deg) brightness(87%) contrast(82%);
     /* Same as `--sidebar-active` */
-    --copy-button-filter-hover: invert(36%) sepia(70%) saturate(503%) hue-rotate(167deg) brightness(98%) contrast(89%);
+    --copy-button-filter-hover: invert(36%) sepia(70%) saturate(503%)
+        hue-rotate(167deg) brightness(98%) contrast(89%);
 
     --footnote-highlight: #4079ae;
 
@@ -146,7 +153,8 @@
     --sidebar-header-border-color: #3473ad;
 }
 
-.light, html:not(.js) {
+.light,
+html:not(.js) {
     --bg: #ffffff;
     --fg: #000000;
 
@@ -156,7 +164,7 @@
     --sidebar-active: #0055bb;
     --sidebar-spacer: #e5e5e5;
 
-    --scrollbar: #8F8F8F;
+    --scrollbar: #8f8f8f;
 
     --icons: #000000;
     --icons-hover: #0055bb;
@@ -192,7 +200,8 @@
     /* Same as `--icons` */
     --copy-button-filter: brightness(0) saturate(100%);
     /* Same as `--sidebar-active` */
-    --copy-button-filter-hover: invert(21%) sepia(93%) saturate(2186%) hue-rotate(202deg) brightness(82%) contrast(106%);
+    --copy-button-filter-hover: invert(21%) sepia(93%) saturate(2186%)
+        hue-rotate(202deg) brightness(82%) contrast(106%);
 
     --footnote-highlight: #0055bb;
 
@@ -208,8 +217,8 @@
 
     --card-bg: #ffffff;
     --card-border: #e5e5e5;
-    --card-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0,
-        rgba(0, 0, 0, 0.05) 0 1px 1px 0;
+    --card-shadow:
+        rgba(50, 50, 105, 0.15) 0 2px 5px 0, rgba(0, 0, 0, 0.05) 0 1px 1px 0;
     --mlg-source-bg: #f6f6f6;
     --mlg-source-command: #444444;
     --mlg-source-muted: #666666;
@@ -259,9 +268,11 @@
     --color-scheme: light;
 
     /* Same as `--icons` */
-    --copy-button-filter: invert(38%) sepia(13%) saturate(1050%) hue-rotate(352deg) brightness(91%) contrast(84%);
+    --copy-button-filter: invert(38%) sepia(13%) saturate(1050%)
+        hue-rotate(352deg) brightness(91%) contrast(84%);
     /* Same as `--sidebar-active` */
-    --copy-button-filter-hover: invert(62%) sepia(50%) saturate(553%) hue-rotate(349deg) brightness(91%) contrast(87%);
+    --copy-button-filter-hover: invert(62%) sepia(50%) saturate(553%)
+        hue-rotate(349deg) brightness(91%) contrast(87%);
 
     --footnote-highlight: #a86d2d;
 
@@ -277,8 +288,8 @@
 
     --card-bg: #fbf3e4;
     --card-border: #d5ba90;
-    --card-shadow: rgba(91, 55, 24, 0.10) 0 2px 6px 0,
-        rgba(91, 55, 24, 0.06) 0 1px 2px 0;
+    --card-shadow:
+        rgba(91, 55, 24, 0.1) 0 2px 6px 0, rgba(91, 55, 24, 0.06) 0 1px 2px 0;
     --mlg-source-bg: #efe1c6;
     --mlg-source-border: #d1b58a;
     --mlg-source-command: #6a3f1d;
@@ -329,9 +340,11 @@
     --color-scheme: dark;
 
     /* Same as `--icons` */
-    --copy-button-filter: invert(51%) sepia(10%) saturate(393%) hue-rotate(198deg) brightness(86%) contrast(87%);
+    --copy-button-filter: invert(51%) sepia(10%) saturate(393%)
+        hue-rotate(198deg) brightness(86%) contrast(87%);
     /* Same as `--sidebar-active` */
-    --copy-button-filter-hover: invert(46%) sepia(20%) saturate(1537%) hue-rotate(156deg) brightness(85%) contrast(90%);
+    --copy-button-filter-hover: invert(46%) sepia(20%) saturate(1537%)
+        hue-rotate(156deg) brightness(85%) contrast(90%);
 
     --footnote-highlight: #4079ae;
 
@@ -388,9 +401,11 @@
     --search-mark-bg: #e69f67;
 
     /* Same as `--icons` */
-    --copy-button-filter: invert(51%) sepia(10%) saturate(393%) hue-rotate(198deg) brightness(86%) contrast(87%);
+    --copy-button-filter: invert(51%) sepia(10%) saturate(393%)
+        hue-rotate(198deg) brightness(86%) contrast(87%);
     /* Same as `--sidebar-active` */
-    --copy-button-filter-hover: invert(77%) sepia(16%) saturate(1798%) hue-rotate(328deg) brightness(98%) contrast(83%);
+    --copy-button-filter-hover: invert(77%) sepia(16%) saturate(1798%)
+        hue-rotate(328deg) brightness(98%) contrast(83%);
 
     --footnote-highlight: #d3a17a;
 
@@ -450,9 +465,11 @@
         --color-scheme: dark;
 
         /* Same as `--icons` */
-        --copy-button-filter: invert(26%) sepia(8%) saturate(575%) hue-rotate(169deg) brightness(87%) contrast(82%);
+        --copy-button-filter: invert(26%) sepia(8%) saturate(575%)
+            hue-rotate(169deg) brightness(87%) contrast(82%);
         /* Same as `--sidebar-active` */
-        --copy-button-filter-hover: invert(36%) sepia(70%) saturate(503%) hue-rotate(167deg) brightness(98%) contrast(89%);
+        --copy-button-filter-hover: invert(36%) sepia(70%) saturate(503%)
+            hue-rotate(167deg) brightness(98%) contrast(89%);
 
         --footnote-highlight: #4079ae;
 
