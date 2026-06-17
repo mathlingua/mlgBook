@@ -1,0 +1,73 @@
+/*
+ * A warm, low-glare paper scheme for highlight.js.
+ * The colors are tuned to sit on mdBook's Paper theme surfaces.
+ */
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #efe1c6;
+  color: #33271c;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #7b684f;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute,
+.hljs-attr,
+.hljs-tag,
+.hljs-name,
+.hljs-regexp,
+.hljs-link,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #8a3f2a;
+}
+
+.hljs-number,
+.hljs-meta,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params {
+  color: #9a5b18;
+}
+
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet {
+  color: #556b2f;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #6f4e1e;
+}
+
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #704214;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-addition {
+  color: #4f6b34;
+  background-color: #e8ead0;
+}
+
+.hljs-deletion {
+  color: #8a3024;
+  background-color: #efd2c6;
+}

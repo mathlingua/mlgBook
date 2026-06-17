@@ -328,6 +328,7 @@ aria-label="Show hidden lines"></button>';
     });
     const stylesheets = {
         ayuHighlight: document.querySelector('#mdbook-ayu-highlight-css'),
+        paperHighlight: document.querySelector('#mdbook-paper-highlight-css'),
         tomorrowNight: document.querySelector('#mdbook-tomorrow-night-css'),
         highlight: document.querySelector('#mdbook-highlight-css'),
     };
@@ -393,17 +394,26 @@ aria-label="Show hidden lines"></button>';
 
         if (theme === 'coal' || theme === 'navy') {
             stylesheets.ayuHighlight.disabled = true;
+            stylesheets.paperHighlight.disabled = true;
             stylesheets.tomorrowNight.disabled = false;
             stylesheets.highlight.disabled = true;
 
             ace_theme = 'ace/theme/tomorrow_night';
         } else if (theme === 'ayu') {
             stylesheets.ayuHighlight.disabled = false;
+            stylesheets.paperHighlight.disabled = true;
             stylesheets.tomorrowNight.disabled = true;
             stylesheets.highlight.disabled = true;
             ace_theme = 'ace/theme/tomorrow_night';
+        } else if (theme === 'paper') {
+            stylesheets.ayuHighlight.disabled = true;
+            stylesheets.paperHighlight.disabled = false;
+            stylesheets.tomorrowNight.disabled = true;
+            stylesheets.highlight.disabled = true;
+            ace_theme = 'ace/theme/dawn';
         } else {
             stylesheets.ayuHighlight.disabled = true;
+            stylesheets.paperHighlight.disabled = true;
             stylesheets.tomorrowNight.disabled = true;
             stylesheets.highlight.disabled = false;
             ace_theme = 'ace/theme/dawn';

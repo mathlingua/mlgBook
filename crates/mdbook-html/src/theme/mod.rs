@@ -27,6 +27,7 @@ static JS: &[u8] = include_bytes!("../../front-end/js/book.js");
 static HIGHLIGHT_JS: &[u8] = include_bytes!("../../front-end/js/highlight.js");
 static TOMORROW_NIGHT_CSS: &[u8] = include_bytes!("../../front-end/css/tomorrow-night.css");
 static HIGHLIGHT_CSS: &[u8] = include_bytes!("../../front-end/css/highlight.css");
+static PAPER_HIGHLIGHT_CSS: &[u8] = include_bytes!("../../front-end/css/paper-highlight.css");
 static AYU_HIGHLIGHT_CSS: &[u8] = include_bytes!("../../front-end/css/ayu-highlight.css");
 static CLIPBOARD_JS: &[u8] = include_bytes!("../../front-end/js/clipboard.min.js");
 
@@ -55,6 +56,7 @@ pub struct Theme {
     pub(crate) js: Vec<u8>,
     pub(crate) highlight_css: Vec<u8>,
     pub(crate) tomorrow_night_css: Vec<u8>,
+    pub(crate) paper_highlight_css: Vec<u8>,
     pub(crate) ayu_highlight_css: Vec<u8>,
     pub(crate) highlight_js: Vec<u8>,
     pub(crate) clipboard_js: Vec<u8>,
@@ -92,6 +94,10 @@ impl Theme {
                 (theme_dir.join("highlight.js"), &mut theme.highlight_js),
                 (theme_dir.join("clipboard.min.js"), &mut theme.clipboard_js),
                 (theme_dir.join("highlight.css"), &mut theme.highlight_css),
+                (
+                    theme_dir.join("paper-highlight.css"),
+                    &mut theme.paper_highlight_css,
+                ),
                 (
                     theme_dir.join("tomorrow-night.css"),
                     &mut theme.tomorrow_night_css,
@@ -217,6 +223,7 @@ impl Default for Theme {
             js: JS.to_owned(),
             highlight_css: HIGHLIGHT_CSS.to_owned(),
             tomorrow_night_css: TOMORROW_NIGHT_CSS.to_owned(),
+            paper_highlight_css: PAPER_HIGHLIGHT_CSS.to_owned(),
             ayu_highlight_css: AYU_HIGHLIGHT_CSS.to_owned(),
             highlight_js: HIGHLIGHT_JS.to_owned(),
             clipboard_js: CLIPBOARD_JS.to_owned(),
@@ -275,6 +282,7 @@ mod tests {
             "highlight.js",
             "tomorrow-night.css",
             "highlight.css",
+            "paper-highlight.css",
             "ayu-highlight.css",
             "clipboard.min.js",
         ];
@@ -308,6 +316,7 @@ mod tests {
             js: Vec::new(),
             highlight_css: Vec::new(),
             tomorrow_night_css: Vec::new(),
+            paper_highlight_css: Vec::new(),
             ayu_highlight_css: Vec::new(),
             highlight_js: Vec::new(),
             clipboard_js: Vec::new(),

@@ -198,6 +198,8 @@ fn mathlingua_code_block_highlighting() {
 Describes: f_ is \set -- comment
 Documented:
 . called: "function on $A?$ to $B?$"
+Means?: x_
+Specifies!: y_
 ```
 "#,
         )
@@ -208,6 +210,8 @@ Documented:
 <span class="hljs-section">Describes:</span> <span class="hljs-variable">f_</span> <span class="hljs-keyword mlg-keyword">is</span> <span class="hljs-title mlg-command">/set</span> <span class="hljs-comment">-- comment</span>
 <span class="hljs-section">Documented:</span>
 <span class="hljs-meta">. </span><span class="hljs-section">called:</span> <span class="hljs-string">"function on $A?$ to $B?$"</span>
+<span class="hljs-section">Means?:</span> <span class="hljs-variable">x_</span>
+<span class="hljs-section">Specifies!:</span> <span class="hljs-variable">y_</span>
 </code></pre>
 "#]],
         );

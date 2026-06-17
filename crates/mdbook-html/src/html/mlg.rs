@@ -175,14 +175,13 @@ fn append_line_prefix(parent: &mut NodeMut<'_, Node>, line: &str) -> usize {
     }
 
     let label_start = index;
-    let label_len = section_label_name_len(&line[label_start..]);
-    if label_len > 0 && line[label_start + label_len..].starts_with(':') {
+    if let Some(label_len) = section_label_len(&line[label_start..]) {
         append_span(
             parent,
             "hljs-section",
-            &line[label_start..label_start + label_len + 1],
+            &line[label_start..label_start + label_len],
         );
-        label_start + label_len + 1
+        label_start + label_len
     } else {
         index
     }
@@ -206,6 +205,22 @@ fn section_label_name_len(source: &str) -> usize {
         .char_indices()
         .find_map(|(index, ch)| (!is_word_char(ch)).then_some(index))
         .unwrap_or(source.len())
+}
+
+fn section_label_len(source: &str) -> Option<usize> {
+    let name_len = section_label_name_len(source);
+    if name_len == 0 {
+        return None;
+    }
+
+    let suffix_len = match source[name_len..].chars().next() {
+        Some('?' | '!') => 1,
+        _ => 0,
+    };
+    let colon_index = name_len + suffix_len;
+    source[colon_index..]
+        .starts_with(':')
+        .then_some(colon_index + 1)
 }
 
 fn quoted_string_len(source: &str) -> usize {

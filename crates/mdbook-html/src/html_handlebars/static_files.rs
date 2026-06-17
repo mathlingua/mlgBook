@@ -57,6 +57,7 @@ impl StaticFiles {
             this.add_builtin("favicon.svg", contents);
         }
         this.add_builtin("highlight.css", &theme.highlight_css);
+        this.add_builtin("paper-highlight.css", &theme.paper_highlight_css);
         this.add_builtin("tomorrow-night.css", &theme.tomorrow_night_css);
         this.add_builtin("ayu-highlight.css", &theme.ayu_highlight_css);
         this.add_builtin("highlight.js", &theme.highlight_js);
@@ -284,6 +285,7 @@ mod tests {
             favicon_svg: Some(Vec::new()),
             js: Vec::new(),
             highlight_css: Vec::new(),
+            paper_highlight_css: Vec::new(),
             tomorrow_night_css: Vec::new(),
             ayu_highlight_css: Vec::new(),
             highlight_js: Vec::new(),

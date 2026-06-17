@@ -8,6 +8,9 @@ go-to: |DOC_PATH| + "all-summary/index.html"
 assert-css: ("#mdbook-theme-list", {"display": "none"})
 click: "#mdbook-theme-toggle"
 assert-css: ("#mdbook-theme-list", {"display": "block"})
+click: "#mdbook-theme-paper"
+assert-attribute: ("html", {"class": "js paper"})
+assert-local-storage: {"mdbook-theme": "paper"}
 click: "#mdbook-theme-rust"
 assert-attribute: ("html", {"class": "js rust"})
 // Clicking a theme doesn't dismiss the popup.
