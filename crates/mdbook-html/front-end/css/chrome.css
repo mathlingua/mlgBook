@@ -158,7 +158,6 @@ html:not(.js) .left-buttons button {
 }
 
 .nav-wrapper {
-    margin-block-start: 50px;
     display: none;
 }
 
@@ -169,11 +168,24 @@ html:not(.js) .left-buttons button {
     width: 90px;
     border-radius: 5px;
     background-color: var(--sidebar-bg);
+
+    position: fixed;
+    bottom: calc(15px + env(safe-area-inset-bottom));
+    z-index: 100;
+
+    transition: color 0.5s, background-color 0.5s;
 }
 
 /* Only Firefox supports flow-relative values */
 .previous { float: left; }
 [dir=rtl] .previous { float: right; }
+.mobile-nav-chapters.previous {
+    left: var(--page-padding);
+}
+[dir=rtl] .mobile-nav-chapters.previous {
+    right: var(--page-padding);
+    left: unset;
+}
 
 /* Only Firefox supports flow-relative values */
 .next {
@@ -185,16 +197,25 @@ html:not(.js) .left-buttons button {
     right: unset;
     left: var(--page-padding);
 }
+.mobile-nav-chapters.next {
+    right: var(--page-padding);
+}
+[dir=rtl] .mobile-nav-chapters.next {
+    right: unset;
+    left: var(--page-padding);
+}
 
 @media only screen and (max-width: 1080px) {
     .nav-wide-wrapper { display: none; }
     .nav-wrapper { display: block; }
+    .content { padding-block-end: calc(110px + env(safe-area-inset-bottom)); }
 }
 
 /* sidebar-visible */
 @media only screen and (max-width: 1380px) {
     #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .nav-wide-wrapper { display: none; }
     #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .nav-wrapper { display: block; }
+    #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .content { padding-block-end: calc(110px + env(safe-area-inset-bottom)); }
 }
 
 /* Inline code */
