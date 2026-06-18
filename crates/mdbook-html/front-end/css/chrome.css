@@ -906,6 +906,11 @@ html:not(.js) .sidebar-resize-handle {
     /* Don't let the children's background extend past the rounded corners. */
     overflow: hidden;
 }
+html.classic .theme-popup,
+html.classic .mobile-nav-chapters,
+html.classic pre > .buttons button {
+    border-radius: 2px;
+}
 [dir="rtl"] .theme-popup {
     left: unset;
     right: 10px;

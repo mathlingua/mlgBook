@@ -224,6 +224,77 @@ html:not(.js) {
     --mlg-source-muted: #666666;
 }
 
+.classic {
+    --bg: #ffffff;
+    --fg: #111111;
+
+    --sidebar-bg: #e9e9e9;
+    --sidebar-fg: #202020;
+    --sidebar-non-existant: #777777;
+    --sidebar-active: #000000;
+    --sidebar-spacer: #bdbdbd;
+
+    --scrollbar: #555555;
+
+    --icons: #333333;
+    --icons-hover: #000000;
+
+    --links: #000000;
+
+    --inline-code-color: #111111;
+
+    --theme-popup-bg: #ffffff;
+    --theme-popup-border: #555555;
+    --theme-hover: #dddddd;
+
+    --quote-bg: #f4f4f4;
+    --quote-border: #8a8a8a;
+
+    --warning-border: #111111;
+
+    --table-border-color: #8a8a8a;
+    --table-header-bg: #dedede;
+    --table-alternate-bg: #f7f7f7;
+
+    --searchbar-border-color: #555555;
+    --searchbar-bg: #ffffff;
+    --searchbar-fg: #111111;
+    --searchbar-shadow-color: #555555;
+    --searchresults-header-fg: #666666;
+    --searchresults-border-color: #8a8a8a;
+    --searchresults-li-bg: #efefef;
+    --search-mark-bg: #cccccc;
+
+    --color-scheme: light;
+
+    /* Same as `--icons` */
+    --copy-button-filter: brightness(0) saturate(100%);
+    /* Same as `--sidebar-active` */
+    --copy-button-filter-hover: brightness(0) saturate(100%);
+
+    --footnote-highlight: #555555;
+
+    --overlay-bg: rgba(0, 0, 0, 0.18);
+
+    --blockquote-note-color: #333333;
+    --blockquote-tip-color: #222222;
+    --blockquote-important-color: #444444;
+    --blockquote-warning-color: #111111;
+    --blockquote-caution-color: #000000;
+
+    --sidebar-header-border-color: #555555;
+
+    --card-bg: #ffffff;
+    --card-border: #777777;
+    --card-radius: 2px;
+    --card-shadow: none;
+    --mlg-border-radius: 2px;
+    --mlg-source-bg: #f7f7f7;
+    --mlg-source-border: #777777;
+    --mlg-source-command: #000000;
+    --mlg-source-muted: #666666;
+}
+
 .paper {
     --bg: #f5eedf;
     --fg: #3a3025;
