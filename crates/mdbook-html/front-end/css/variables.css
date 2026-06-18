@@ -226,10 +226,10 @@ html:not(.js) {
 
 .classic {
     --bg: #ffffff;
-    --fg: #111111;
+    --fg: #333;
 
     --sidebar-bg: #e9e9e9;
-    --sidebar-fg: #202020;
+    --sidebar-fg: #333;
     --sidebar-non-existant: #777777;
     --sidebar-active: #000000;
     --sidebar-spacer: #bdbdbd;
@@ -286,13 +286,13 @@ html:not(.js) {
 
     --card-bg: #ffffff;
     --card-border: #777777;
-    --card-radius: 2px;
+    --card-radius: 5px;
     --card-shadow: none;
     --mlg-border-radius: 2px;
-    --mlg-source-bg: #f7f7f7;
-    --mlg-source-border: #777777;
+    --mlg-source-bg: #fafafa;
+    --mlg-source-border: #aaaaaa;
     --mlg-source-command: #000000;
-    --mlg-source-muted: #666666;
+    --mlg-source-muted: #333;
 }
 
 .paper {
